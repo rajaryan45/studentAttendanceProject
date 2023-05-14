@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
+import org.apache.tomcat.dbcp.pool2.impl.AbandonedConfig;
+
 import student.info.Student;
 import teacher.info.Teacher;
 
@@ -20,7 +22,7 @@ public class DatabaseDao {
 	private static final String PSWD = "root";
 	private static final String URL = "jdbc:mysql://localhost:3306/school";
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-
+	private Connection connection = null;
 	private Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -37,7 +39,7 @@ public class DatabaseDao {
 
 	public ResultSet getStudentData(Student obj) throws SQLException {
 		ResultSet rSet = null;
-		Connection connection = getConnection();
+		connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(Query.SELECT_STUDENT_ADMN_ID);
 			statement.setInt(1, obj.getStudentAdmnId());
@@ -50,7 +52,7 @@ public class DatabaseDao {
 	
 	public ResultSet getTeacherData(Teacher obj) throws SQLException {
 		ResultSet rSet = null;
-		Connection connection = getConnection();
+		connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(Query.SELECT_TEACHER_ID);
 			statement.setInt(1, obj.getTeacherId());
@@ -65,7 +67,7 @@ public class DatabaseDao {
 		boolean add = true;
 		ResultSet rSet = null;
 		int roll = -1;
-		Connection connection = getConnection();
+		connection = getConnection();
 		try {
 			PreparedStatement maxRollStmt = connection.prepareStatement(Query.SELECT_MAX_ROLL_IN_CLASS);
 			maxRollStmt.setString(1, obj.getStudentClass());
@@ -105,5 +107,19 @@ public class DatabaseDao {
 			done = false;
 		}
 		return done;
+	}
+	
+	public boolean deleteStudent(Student objStudent) {
+		boolean status = true;
+		try {
+			connection = getConnection();
+			PreparedStatement updateStatement = connection.prepareStatement(Query.PARTIAL_DELETE_OPERATION);
+			updateStatement.setString(1, Integer.toString(objStudent.getStudentAdmnId()));
+			updateStatement.execute();
+		} catch (Exception e) {
+			e.getMessage();
+			status = false;
+		}
+		return status;
 	}
 }
