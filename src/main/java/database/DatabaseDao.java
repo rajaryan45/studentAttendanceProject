@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import student.info.Student;
+import teacher.info.Teacher;
 
 public class DatabaseDao {
 	private static final String USER_NAME = "root";
@@ -28,12 +29,25 @@ public class DatabaseDao {
 		return connection;
 	}
 
-	public ResultSet getStudentData(Student obj) {
+	public ResultSet getStudentData(Student obj) throws SQLException {
 		ResultSet rSet = null;
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(Query.SELECT_STUDENT_ADMN_ID);
 			statement.setInt(1, obj.getStudentAdmnId());
+			rSet = statement.executeQuery();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return rSet;
+	}
+	
+	public ResultSet getTeacherData(Teacher obj) throws SQLException {
+		ResultSet rSet = null;
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(Query.SELECT_TEACHER_ID);
+			statement.setInt(1, obj.getTeacherId());
 			rSet = statement.executeQuery();
 		} catch (Exception e) {
 			e.getMessage();
