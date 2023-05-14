@@ -9,19 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.action.BaseServlet;
 import com.google.gson.Gson;
 
 import database.DatabaseDao;
 import student.info.Student;
 
 @WebServlet("/StudentData")
-public class StudentData extends HttpServlet {
-	private Student student = new Student();
-	private DatabaseDao dao = new DatabaseDao();
-	private ResultSet rSet = null;
-	private Gson gson = new Gson();
-	private String jsonData = null;
-
+public class StudentData extends BaseServlet {
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int admId = Integer.parseInt(request.getParameter("addmissionId"));
 		System.out.println("admission ID : " + admId);
