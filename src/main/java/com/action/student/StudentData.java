@@ -1,4 +1,4 @@
-package com.student.action;
+package com.action.student;
 
 import java.io.IOException;
 import java.io.PrintWriter;
