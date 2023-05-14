@@ -1,10 +1,16 @@
 package database;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
+import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 import student.info.Student;
 import teacher.info.Teacher;
@@ -53,5 +59,51 @@ public class DatabaseDao {
 			e.getMessage();
 		}
 		return rSet;
+	}
+	
+	public boolean addmitStudent(Student obj) {
+		boolean add = true;
+		ResultSet rSet = null;
+		int roll = -1;
+		Connection connection = getConnection();
+		try {
+			PreparedStatement maxRollStmt = connection.prepareStatement(Query.SELECT_MAX_ROLL_IN_CLASS);
+			maxRollStmt.setString(1, obj.getStudentClass());
+			maxRollStmt.setString(2, obj.getStudentSection());
+			rSet = maxRollStmt.executeQuery();
+			if(rSet.next()) {
+				roll = Integer.parseInt(rSet.getString(1)) + 1;
+			}
+			System.out.println("roll : " + roll);
+			PreparedStatement insertStudent = connection.prepareStatement(Query.INSERT_STUDENT);
+			insertStudent.setString(1, obj.getStudentName());
+			insertStudent.setString(2, obj.getStudentClass());
+			insertStudent.setString(3, obj.getStudentSection());
+			insertStudent.setString(4, obj.getStudentAddress());
+			insertStudent.setString(5, obj.getStudentPhoneNum());
+			insertStudent.setString(6, Integer.toString(roll));
+			insertStudent.execute();
+			
+		}catch (Exception e) {
+			e.getMessage();
+			add = false;
+		}
+		return add;
+	}
+	
+	public boolean updateAttendance(String rollNums ,String classNum ,String section) {
+		boolean done = true;
+		List<String>rollList = Arrays.asList(rollNums.split(","));
+		try {
+			Connection connection = getConnection();			
+			PreparedStatement updateStatement = connection.prepareStatement(Query.UPDATE_ATTENDANCE_P1 + rollNums + Query.UPDATE_ATTENDANCE_P2);			
+			updateStatement.setString(1, classNum);
+			updateStatement.setString(2, section);
+			updateStatement.execute();
+		} catch (Exception e) {
+			e.getMessage();
+			done = false;
+		}
+		return done;
 	}
 }
