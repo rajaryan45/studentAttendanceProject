@@ -18,6 +18,7 @@ public class TeacherData extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ResultSet rSet = null;
+		String jsonData = null;
 		try {
 			int teacherId = Integer.parseInt(req.getParameter("teacher_id"));
 			System.out.println("Teacher Id : " +  teacherId);

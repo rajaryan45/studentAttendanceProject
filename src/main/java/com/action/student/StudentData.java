@@ -6,14 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.action.BaseServlet;
-import com.google.gson.Gson;
 
-import database.DatabaseDao;
 import student.info.Student;
 
 @WebServlet("/StudentData")
@@ -22,6 +19,8 @@ public class StudentData extends BaseServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int admId = Integer.parseInt(request.getParameter("addmissionId"));
 		System.out.println("admission ID : " + admId);
+		ResultSet rSet = null;
+		String jsonData = null;
 		try {
 			student.setStudentAdmnId(admId);
 			rSet = dao.getStudentData(student);
