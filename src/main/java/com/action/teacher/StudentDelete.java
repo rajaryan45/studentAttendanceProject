@@ -12,6 +12,11 @@ import com.action.BaseServlet;
 
 @WebServlet("/StudentDelete")
 public class StudentDelete extends BaseServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7798768163108866435L;
+
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {

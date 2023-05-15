@@ -1,7 +1,6 @@
 package teacher.info;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Teacher {
 	private int teacherId;

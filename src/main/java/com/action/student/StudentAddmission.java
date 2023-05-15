@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.action.BaseServlet;
 
-import database.DatabaseDao;
 import student.info.Student;
 
 @WebServlet("/StudentAddmission")
 public class StudentAddmission extends BaseServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1065434851395295776L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

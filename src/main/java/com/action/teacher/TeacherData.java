@@ -15,6 +15,11 @@ import teacher.info.Teacher;
 
 @WebServlet("/TeacherData")
 public class TeacherData extends BaseServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2795957239118271615L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ResultSet rSet = null;
