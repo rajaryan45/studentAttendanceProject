@@ -1,18 +1,10 @@
 package database;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
-import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
-
-import org.apache.tomcat.dbcp.pool2.impl.AbandonedConfig;
 
 import student.info.Student;
 import teacher.info.Teacher;
@@ -94,8 +86,7 @@ public class DatabaseDao {
 	}
 	
 	public boolean updateAttendance(String rollNums ,String classNum ,String section) {
-		boolean done = true;
-		List<String>rollList = Arrays.asList(rollNums.split(","));
+		boolean done = true;		
 		try {
 			Connection connection = getConnection();			
 			PreparedStatement updateStatement = connection.prepareStatement(Query.UPDATE_ATTENDANCE_P1 + rollNums + Query.UPDATE_ATTENDANCE_P2);			

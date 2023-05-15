@@ -16,6 +16,11 @@ import student.info.Student;
 @WebServlet("/StudentData")
 public class StudentData extends BaseServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6152205822758810353L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int admId = Integer.parseInt(request.getParameter("addmissionId"));
 		System.out.println("admission ID : " + admId);
