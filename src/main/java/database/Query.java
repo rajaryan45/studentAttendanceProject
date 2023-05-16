@@ -13,5 +13,6 @@ public class Query {
 	protected static final String UPDATE_ATTENDANCE_P1 = "UPDATE `school`.`student` SET student_attendance = student_attendance + 1  WHERE `student_roll_num` NOT IN (";
 	protected static final String UPDATE_ATTENDANCE_P2 = ")  AND student_class = ? AND student_section = ? AND is_deleted = 0";
 	protected static final String PARTIAL_DELETE_OPERATION = "UPDATE `school`.`student` SET `is_deleted` = '1' WHERE `student_admn_id` = ?";
+	protected static final String STUDENT_COUNT = "SELECT COUNT(*) FROM student WHERE student_class = ? AND student_section = ? AND is_deleted = 0";
 	
 }

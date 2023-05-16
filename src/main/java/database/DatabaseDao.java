@@ -113,4 +113,21 @@ public class DatabaseDao {
 		}
 		return status;
 	}
+	
+	public int countStudent(String classNum ,String section) {
+		int count = -1;
+		try {
+			connection = getConnection();
+			PreparedStatement coutStatement = connection.prepareStatement(Query.STUDENT_COUNT);
+			coutStatement.setString(1, classNum);
+			coutStatement.setString(2, section);
+			ResultSet rSet = coutStatement.executeQuery();
+			if(rSet.next()) {
+				count = Integer.parseInt(rSet.getString(1));
+			}
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return count;
+	}
 }
