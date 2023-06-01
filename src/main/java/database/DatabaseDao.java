@@ -15,6 +15,7 @@ public class DatabaseDao {
 	private static final String URL = "jdbc:mysql://localhost:3306/school";
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private Connection connection = null;
+	
 	private Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -27,6 +28,14 @@ public class DatabaseDao {
 		}
 
 		return connection;
+	}
+	
+	public void closeConnection() {
+		try {
+			connection.close();
+		} catch (SQLException e) {				
+			e.printStackTrace();
+		}
 	}
 
 	public ResultSet getStudentData(Student obj) throws SQLException {
@@ -81,6 +90,12 @@ public class DatabaseDao {
 		}catch (Exception e) {
 			e.getMessage();
 			add = false;
+		}finally {
+			try {
+				rSet.close();
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
 		}
 		return add;
 	}
@@ -89,7 +104,7 @@ public class DatabaseDao {
 		boolean done = true;		
 		try {
 			Connection connection = getConnection();			
-			PreparedStatement updateStatement = connection.prepareStatement(Query.UPDATE_ATTENDANCE_P1 + rollNums + Query.UPDATE_ATTENDANCE_P2);			
+			PreparedStatement updateStatement = connection.prepareStatement(Query.UPDATE_PRESENT_ATTENDANCE_P1 + rollNums + Query.UPDATE_PRESENT_ATTENDANCE_P2);			
 			updateStatement.setString(1, classNum);
 			updateStatement.setString(2, section);
 			updateStatement.execute();
@@ -102,31 +117,63 @@ public class DatabaseDao {
 	
 	public boolean deleteStudent(Student objStudent) {
 		boolean status = true;
+		ResultSet rSet = null;
 		try {
 			connection = getConnection();
+			
+			String roll = "";
+			String classNum = "";
+			String section = "";
+			PreparedStatement getRollStatement = connection.prepareStatement(Query.GET_ROLL_FROM_ADMNID);
+			getRollStatement.setString(1, Integer.toString(objStudent.getStudentAdmnId()));
+			rSet = getRollStatement.executeQuery();
+			if (rSet.next()) {
+				classNum = rSet.getString(1);
+				section = rSet.getString(2);
+				roll = rSet.getString(3);
+			}
 			PreparedStatement updateStatement = connection.prepareStatement(Query.PARTIAL_DELETE_OPERATION);
 			updateStatement.setString(1, Integer.toString(objStudent.getStudentAdmnId()));
 			updateStatement.execute();
+			
+			PreparedStatement updateRollStatement = connection.prepareStatement(Query.UPDATE_ROLL_AFTER_DELETE);
+			updateRollStatement.setString(1, classNum);
+			updateRollStatement.setString(2, section);
+			updateRollStatement.setString(3, roll);
+			updateRollStatement.execute();
 		} catch (Exception e) {
 			e.getMessage();
 			status = false;
+		}finally {
+			try {
+				rSet.close();
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
 		}
 		return status;
 	}
 	
 	public int countStudent(String classNum ,String section) {
 		int count = -1;
+		ResultSet rSet = null;
 		try {
 			connection = getConnection();
 			PreparedStatement coutStatement = connection.prepareStatement(Query.STUDENT_COUNT);
 			coutStatement.setString(1, classNum);
 			coutStatement.setString(2, section);
-			ResultSet rSet = coutStatement.executeQuery();
+			rSet = coutStatement.executeQuery();
 			if(rSet.next()) {
 				count = Integer.parseInt(rSet.getString(1));
 			}
 		} catch (Exception e) {
 			e.getMessage();
+		}finally {
+			try {
+				rSet.close();
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			}
 		}
 		return count;
 	}

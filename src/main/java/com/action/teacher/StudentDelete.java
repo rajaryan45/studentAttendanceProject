@@ -28,6 +28,7 @@ public class StudentDelete extends BaseServlet {
 		 	}else {
 		 		printWriter.write("error occured while deleting record");
 		 	}
+		 	dao.closeConnection();
 		} catch (Exception e) {
 			e.getMessage();
 		}
