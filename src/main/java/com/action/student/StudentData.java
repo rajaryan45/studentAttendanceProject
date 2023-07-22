@@ -34,8 +34,7 @@ public class StudentData extends BaseServlet {
 			if(rSet == null) {
 				printWriter.write("addmission Id : " + admId + " not present");
 			}else {
-				 if(rSet.next()) {
-					System.out.println("inside");
+				 if(rSet.next()) {					
 					Student objStudent = new Student(rSet);
 					jsonData = gson.toJson(objStudent);
 				}else {
