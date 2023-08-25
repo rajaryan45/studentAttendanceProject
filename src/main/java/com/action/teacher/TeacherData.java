@@ -28,7 +28,7 @@ public class TeacherData extends BaseServlet {
 			int teacherId = Integer.parseInt(req.getParameter("teacher_id"));
 			System.out.println("Teacher Id : " +  teacherId);
 			teacher.setTeacherId(teacherId);
-			rSet = dao.getTeacherData(teacher);
+			rSet = teacherDao.getTeacherData(teacher);
 			while(rSet.next()) {
 				System.out.println("inside");
 				Teacher objTeacher = new Teacher(rSet);

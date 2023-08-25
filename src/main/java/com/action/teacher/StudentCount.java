@@ -24,7 +24,7 @@ public class StudentCount extends BaseServlet {
 		String section = req.getParameter("section");
 		PrintWriter printWriter = resp.getWriter();
 		try {
-			int count = dao.countStudent(classNum, section);
+			int count = teacherDao.countStudent(classNum, section);
 			printWriter.write("count : " + count);
 		} catch (Exception e) {
 			e.getMessage();

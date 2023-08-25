@@ -28,7 +28,7 @@ public class StudentData extends BaseServlet {
 		String jsonData = null;
 		try {
 			student.setStudentAdmnId(admId);
-			rSet = dao.getStudentData(student);
+			rSet = studentDao.getStudentData(student);
 			System.out.println("out");
 			PrintWriter printWriter = response.getWriter();
 			if(rSet == null) {

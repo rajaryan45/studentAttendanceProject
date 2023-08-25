@@ -21,14 +21,14 @@ public class StudentDelete extends BaseServlet {
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			student.setStudentAdmnId(Integer.parseInt(req.getParameter("addmission_id")));
-		 	boolean status =  dao.deleteStudent(student);
+		 	boolean status =  teacherDao.deleteStudent(student);
 		 	PrintWriter printWriter = resp.getWriter();
 		 	if(status) {
 		 		printWriter.write("done");
 		 	}else {
 		 		printWriter.write("error occured while deleting record");
 		 	}
-		 	dao.closeConnection();
+		 	databaseDao.closeConnection();
 		} catch (Exception e) {
 			e.getMessage();
 		}
