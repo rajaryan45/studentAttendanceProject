@@ -25,7 +25,7 @@ public class StudentAttendance extends BaseServlet {
 		String section = req.getParameter("section");
 		try {
 			
-			boolean status = dao.updateAttendance(rollNumString, classNum, section);
+			boolean status = teacherDao.updateAttendance(rollNumString, classNum, section);
 			PrintWriter printWriter = resp.getWriter();
 			if(status) {
 				printWriter.write("attendace update for Class : " + classNum + " Section : " + section );

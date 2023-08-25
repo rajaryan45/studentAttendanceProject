@@ -1,4 +1,4 @@
-package com.action.student;
+package com.action.teacher;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,7 +30,7 @@ public class StudentAddmission extends BaseServlet {
 		objStudent.setStudentAddress(req.getParameter("student_address"));
 		objStudent.setStudentPhoneNum(req.getParameter("student_phone_num"));
 		try {
-			boolean add = dao.addmitStudent(objStudent);
+			boolean add = teacherDao.addmitStudent(objStudent);
 			PrintWriter printWriter = resp.getWriter();
 			if (add) {
 				printWriter.write("add");
