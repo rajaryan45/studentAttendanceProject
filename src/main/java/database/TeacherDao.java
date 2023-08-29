@@ -138,4 +138,23 @@ public class TeacherDao extends DatabaseDao{
 		return count;
 	}
 
+	public void setStudentSubjectName(int cls ,String section, String subjects) {
+		connection = getConnection();
+		try {
+			XMLFormatter xmlFormatter = new XMLFormatter();
+			String subjectXml = xmlFormatter.getSubjectNameXml(subjects);
+			PreparedStatement preparedStatement = connection.prepareStatement(Query.SUBJECT_NAME_INSERT);
+			preparedStatement.setInt(1, cls);
+			preparedStatement.setString(2, section);
+			preparedStatement.setString(3, subjectXml);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			System.out.println("Exception : " + e.getMessage() + " : " );
+			e.printStackTrace();
+		}
+	}
+	
+	public void setStudentMark(int cls , String sec , int roll , String subject , float marks) {
+		
+	}
 }

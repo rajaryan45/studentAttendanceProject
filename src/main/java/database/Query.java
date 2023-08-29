@@ -18,5 +18,6 @@ public class Query {
 	protected static final String UPDATE_ROLL_AFTER_DELETE = "UPDATE `school`.`student` SET `student_roll_num` = student_roll_num - 1 WHERE student_class = ? AND student_section = ? AND is_deleted = 0 AND student_roll_num > ?";	
 	
 	protected static final String STUDENT_COUNT = "SELECT COUNT(*) FROM student WHERE student_class = ? AND student_section = ? AND is_deleted = 0";
+	protected static final String SUBJECT_NAME_INSERT = "INSERT INTO `school`.`subject_class_mapping` (`cls`, `sec`, `subject`) VALUES (?, ? , ?)";
 	
 }
