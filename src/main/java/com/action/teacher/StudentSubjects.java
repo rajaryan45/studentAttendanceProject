@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.valves.rewrite.RewriteCond;
 
 import com.action.BaseServlet;
 @WebServlet("/StudentSubjects")
